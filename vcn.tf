@@ -9,5 +9,7 @@ resource "oci_core_vcn" "VCN" {
   compartment_id = local.nw_compartment_ocid
   cidr_blocks    = var.vcn_cidr_blocks
   display_name   = var.vcn_display_name
-  dns_label      = substr(replace(tostring(var.vcn_display_name), "_", ""), 0, 15)
+  #dns_label      = substr(replace(tostring(var.vcn_display_name), "_", ""), 0, 15)
+  dns_label      = substr(replace(tostring(var.vcn_display_name), "-", ""), 0, 15)
+
 }

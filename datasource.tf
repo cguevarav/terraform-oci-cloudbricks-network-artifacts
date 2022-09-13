@@ -40,22 +40,22 @@ data "oci_core_services" "STORAGESERVICES" {
   }
 }
 
-data "oci_core_vcns" "PEEREDVCN" {
-  compartment_id = var.is_spoke == true ? local.peered_nw_compartment_ocid : local.nw_compartment_ocid
-  filter {
-    name   = "display_name"
-    values = [var.hub_vcn_display_name]
-  }
-}
+# data "oci_core_vcns" "PEEREDVCN" {
+#   compartment_id = var.is_spoke == true ? local.peered_nw_compartment_ocid : local.nw_compartment_ocid
+#   filter {
+#     name   = "display_name"
+#     values = [var.hub_vcn_display_name]
+#   }
+# }
 
-data "oci_core_drgs" "DRG" {
-  count          = var.is_spoke == true ? 1 : 0
-  compartment_id = local.peered_nw_compartment_ocid
-  filter {
-    name   = "display_name"
-    values = [var.drg_display_name]
-  }
-}
+# data "oci_core_drgs" "DRG_HUB" {
+#   # count          = var.is_spoke == true ? 1 : 0
+#   compartment_id = local.nw_compartment_ocid
+#   filter {
+#     name   = "display_name"
+#     values = [var.drg_display_name]
+#   }
+# }
 
 
 locals {
@@ -71,6 +71,11 @@ locals {
   storage_service_gateway_destination = data.oci_core_services.STORAGESERVICES.services[0]["cidr_block"]
 
   # DRG Accessors
-  hub_drg             = length(data.oci_core_drgs.DRG) > 0 ? data.oci_core_drgs.DRG[0].drgs : []
-  hub_vcn_cidr_blocks = length(data.oci_core_vcns.PEEREDVCN.virtual_networks) > 0 ? lookup(data.oci_core_vcns.PEEREDVCN.virtual_networks[0], "cidr_blocks") : []
+//  hub_drg             = length(data.oci_core_drgs.DRG) > 0 ? data.oci_core_drgs.DRG[0].drgs : []
+//  hub_vcn_cidr_blocks = length(data.oci_core_vcns.PEEREDVCN.virtual_networks) > 0 ? lookup(data.oci_core_vcns.PEEREDVCN.virtual_networks[0], "cidr_blocks") : []
+  // hub_drg             = length(data.oci_core_drgs.DRG_HUB) > 0 ? data.oci_core_drgs.DRG_HUB.drgs : []
+  //hub_drg             = lookup(data.oci_core_drgs.DRG_HUB.drgs[0], "id")
+
+
+
 }

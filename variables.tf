@@ -188,7 +188,10 @@ variable "private_subnet_cidr_block_map" {
   type        = map(any)
   description = "Map of CIDR Blocks associated to private subnets and it's corresponding names"
 }
-
+variable "private_subnet_dnslabel_block_map" {
+  type        = map(any)
+  description = "Map of DNS Labels associated to private subnets and it's corresponding names"
+}
 variable "is_private_subnet_private" {
   description = "Describes if the subnet is private or not"
   default     = true
@@ -200,7 +203,10 @@ variable "public_subnet_cidr_block_map" {
   type        = map(any)
   description = "Map of CIDR Blocks associated to private subnets and it's corresponding names"
 }
-
+variable "public_subnet_dnslabel_block_map" {
+  type        = map(any)
+  description = "Map of DNS Labels associated to private subnets and it's corresponding names"
+}
 variable "is_public_subnet_private" {
   description = "Describes if the subnet is private or not"
   default     = false
@@ -209,9 +215,16 @@ variable "is_public_subnet_private" {
 
 /********** NAT Gateway Variables **********/
 
+
 variable "nat_gateway_display_name" {
   description = "NAT Gateway Display Name"
 }
+
+variable "nat_gateway_present" {
+  description = "(Optional) Whether to create NAT Gateway on desired VCN"
+  default     = true
+}
+
 variable "private_route_table_nat_route_rules_description" {
   description = "(Optional) (Updatable) An optional description of your choice for the rule."
   default     = "NAT Gateway default route"
@@ -230,6 +243,12 @@ variable "private_route_table_nat_route_rules_destination_type" {
 /********** NAT Gateway Variables **********/
 
 /********** Private Service Gateway Variables **********/
+
+variable "service_gateway_present" {
+  description = "Describes whether Service Gateway sould be created"
+  default     = true
+  
+}
 variable "service_gateway_display_name" {
   description = "Service Gateway Display Name"
 }
@@ -263,6 +282,12 @@ variable "public_route_table_svc_route_rules_destination_type" {
 
 
 /********** Public Internet Gateway Variables **********/
+
+variable "internet_gateway_present" {
+  description = "Describes if the Internet Gateway should be created"
+  default     = true
+}
+
 variable "internet_gateway_enabled" {
   description = "Describes if the Internet Gateway is enabled upon creation or not"
   default     = true

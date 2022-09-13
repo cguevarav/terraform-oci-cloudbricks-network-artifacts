@@ -7,6 +7,7 @@
 
 
 resource "oci_core_internet_gateway" "INETGateway" {
+  count          = var.internet_gateway_present ? 1 : 0
   compartment_id = local.nw_compartment_ocid
   vcn_id         = oci_core_vcn.VCN.id
 

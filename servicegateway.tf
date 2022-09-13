@@ -7,6 +7,7 @@
 
 
 resource "oci_core_service_gateway" "PrivateServiceGateway" {
+  count          = var.service_gateway_present ? 1 : 0
   compartment_id = local.nw_compartment_ocid
   services {
     service_id = local.all_service_list_ocid
